@@ -16,6 +16,7 @@ class MyHandler( BaseHTTPRequestHandler ):
       if(self.path == "/climbConfigs"):
         self.send_response( 200 );
         self.send_header( "Content-type", "application/json" );
+        self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers();
         self.wfile.write( bytes( json.dumps(climbConfigs), "utf-8" ) );
       elif self.path == "/hello.html":
