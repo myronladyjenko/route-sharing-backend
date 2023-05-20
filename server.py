@@ -2,7 +2,7 @@ import sys;
 import json;
 from http.server import HTTPServer, BaseHTTPRequestHandler;
 
-let climbConfigs = {
+climbConfigs = {
   "crimp": [
     1,
     2,
