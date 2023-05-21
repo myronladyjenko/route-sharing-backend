@@ -26,6 +26,7 @@ class MyHandler( BaseHTTPRequestHandler ):
         self.wfile.write( bytes( json.dumps(climbConfigs), "utf-8" ) );
       elif self.path == "/hello.html":
         self.send_response( 200 ); # OK
+        self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header( "Content-type", "text/html" );
         self.send_header( "Content-length", len(home_page) );
         self.end_headers();
@@ -45,6 +46,7 @@ class MyHandler( BaseHTTPRequestHandler ):
 
         db.createClimb(data)
 
+        self.send_header('Access-Control-Allow-Origin', '*')
         self.send_response(200)
         self.end_headers()
       
@@ -57,6 +59,7 @@ class MyHandler( BaseHTTPRequestHandler ):
 
         if not signed_transaction:
           self.send_response(400)
+          self.send_header('Access-Control-Allow-Origin', '*')
           self.send_header('Content-Type', 'application/json')
           self.end_headers()
           response = {'error': 'Invalid purchase request'}
@@ -66,6 +69,7 @@ class MyHandler( BaseHTTPRequestHandler ):
         transaction_hash = Web3.eth.sendRawTransaction(signed_transaction.rawTransaction).hex()
 
         self.send_response(200)
+        self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Content-Type', 'application/json')
         self.end_headers()
         response = {'message': 'Purchase successful', 'transactionHash': transaction_hash}
