@@ -53,6 +53,7 @@ class Database:
     #Add a new climb to the db
     def createClimb(self, climbData):
         climb = ClimbWrapper.Climb(climbData)
+        print(climbData)
 
         self['Climbs'] = (climb.name, climb.width, climb.height, climb.angle, climb.difficulty, climb.author, \
                             climb.region, climb.hold_theme, None)
