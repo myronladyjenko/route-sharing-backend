@@ -58,7 +58,7 @@ class MyHandler( BaseHTTPRequestHandler ):
         self.end_headers();
         self.wfile.write( bytes( "404: not found", "utf-8" ) );
     
-    def do_POST(self):
+    def do_OPTIONS(self):
       if self.path == '/create-climb':
         content_length = int(self.headers['Content-Length'])
         data = self.rfile.read(content_length);
