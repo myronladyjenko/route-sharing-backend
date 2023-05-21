@@ -30,8 +30,8 @@ class Database:
         self.connection.close()
 
     def __setitem__(self, table, values):
-        placeholders = ", ".join(["%s"] * len(values)) 
-        insertStr = f"INSERT OR IGNORE INTO {table} VALUES ({placeholders});";
+        questionMarkStr = ", ".join(('?',)*len(values)) 
+        insertStr = f"INSERT OR IGNORE INTO {table} VALUES (" + questionMarkStr + ")";
         print(insertStr)
         print(values)
 
