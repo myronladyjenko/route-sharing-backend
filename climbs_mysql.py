@@ -16,8 +16,8 @@ class Database:
         self.connection.close()
 
     def __setitem__(self, table, values):
-        questionMarkStr = ", ".join(('?',)*len(values)) 
-        insertStr = f"INSERT OR IGNORE INTO {table} VALUES (" + questionMarkStr + ");";
+        placeholders = ", ".join(["%s"] * len(values)) 
+        insertStr = f"INSERT OR IGNORE INTO {table} VALUES ({placeholders});";
 
         self.cursor.execute(insertStr, values)
 
