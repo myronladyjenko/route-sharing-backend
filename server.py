@@ -64,7 +64,7 @@ class MyHandler( BaseHTTPRequestHandler ):
         data = self.rfile.read(content_length);
         print(content_length)
         print(data)
-        data = urllib.parse.parse_qs( data.decode( 'utf-8' ) );
+        data = data.decode( 'utf-8' )
 
         print("PRINTING IN SERVER")
         print(data)
