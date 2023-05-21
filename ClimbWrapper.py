@@ -12,11 +12,11 @@ class Climb:
         self.author = dict['author']
         self.region = dict['region'] 
         self.hold_theme = dict['hold_theme']
-        self.hold = []
+        self.holds = []
 
         for item in dict['holds']:
             newHold = Hold(item['id'], item['x'], item['y'], item['rotation'])
-            self.hold.append(newHold)
+            self.holds.append(newHold)
 
 #Class for representing hold specific information
 class Hold:
