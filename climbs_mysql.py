@@ -19,14 +19,10 @@ class Database:
     #     self.createTables()
     
     def __init__(self, reset=False):
-        if(reset):
-            try:
-                newDB = open("molecules.db", "x");
-            except FileExistsError:
-                os.remove('molecules.db');
-                newDB = open("molecules.db", "x");
-                self.createTables()
-        
+        if reset == True:
+            if (os.path.exists('molecules.db')):
+                os.remove('molecules.db')
+            
         self.connection = sqlite3.connect("molecules.db");
         # self.connection = self.connection.connection()
 
