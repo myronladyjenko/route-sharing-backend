@@ -1,7 +1,7 @@
 import sys;
 import json;
 from http.server import HTTPServer, BaseHTTPRequestHandler;
-from web3 import web3
+from web3 import Web3
 
 climbConfigs = {
   "crimp": [
