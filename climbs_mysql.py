@@ -32,7 +32,7 @@ class Database:
                         AUTHOR      TEXT        NOT NULL,
                         REGION      TEXT        NOT NULL,
                         HOLDS_SET   TEXT        NOT NULL,
-                        CLIMB_ID    INT         NOT NULL AUTO_INCREMENT
+                        CLIMB_ID    INT         NOT NULL AUTO_INCREMENT,
                         PRIMARY KEY (CLIMB_ID)
                     );"""
 
