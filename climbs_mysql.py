@@ -57,7 +57,7 @@ class Database:
                         AUTHOR      TEXT        NOT NULL,
                         REGION      TEXT        NOT NULL,
                         HOLDS_SET   TEXT        NOT NULL,
-                        CLIMB_ID    INT         NOT NULL PRIMARY KEY AUTO_INCREMENT
+                        CLIMB_ID    INT         NOT NULL PRIMARY KEY AUTOINCREMENT
                     );"""
 
         holds = """ CREATE TABLE IF NOT EXISTS Holds (
