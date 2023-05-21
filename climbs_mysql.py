@@ -13,7 +13,6 @@ class Database:
         self.cursor = self.connection.cursor()
     
     def __del__(self):
-        self.cursor.close()
         self.connection.close()
 
     def __setitem__(self, table, values):
@@ -33,7 +32,7 @@ class Database:
                         AUTHOR      TEXT        NOT NULL,
                         REGION      TEXT        NOT NULL,
                         HOLDS_SET   TEXT        NOT NULL,
-                        CLIMB_ID    INT         NOT NULL AUTO_INCREMENT
+                        CLIMB_ID    INT         NOT NULL AUTO_INCREMENT,
                         PRIMARY KEY (CLIMB_ID)
                     );"""
 
@@ -82,3 +81,6 @@ class Database:
 
         climb = ClimbWrapper(climbInfo, holdsInfo)
         return climb
+    
+if __name__ == '__main__':
+    db = Database() 
