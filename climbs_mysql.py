@@ -78,7 +78,7 @@ class Database:
 
         self['Climbs'] = (climb.name, climb.width, climb.height, climb.angle, climb.difficulty, climb.author, climb.region, climb.hold_theme, None)
 
-        climbID = self.connection.execute(self.lastID)
+        # climbID = self.connection.execute(self.lastID)
         dataClimbID = self.connection.execute("SELECT MAX(CLIMB_ID) FROM Climbs");
         climbID = int(dataClimbID.fetchone()[0]);
 
