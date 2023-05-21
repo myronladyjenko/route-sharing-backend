@@ -10,7 +10,19 @@ class Database:
         )
 
         self.cursor = self.connection.cursor()
+        self.lastID = 'SELECT LAST_INSERT_ID();'
+    
+    def __del__(self):
+        self.cursor.close()
+        self.connection.close()
 
+    def __setitem__(self, table, values):
+        questionMarkStr = ", ".join(('?',)*len(values)) 
+        insertStr = f"INSERT OR IGNORE INTO {table} VALUES (" + questionMarkStr + ")";
+
+        self.cursor.execute(insertStr, values)
+
+    #Create Tables
     def createTables(self):
         climbs = """CREATE TABLE IF NOT EXISTS Climbs (
                 NAME        TEXT        NOT NULL,
@@ -39,12 +51,13 @@ class Database:
         self.cursor.execute(holds)
         self.connection.commit()
 
-# Connect to the MySQL server
+    #Add a new climb to the db
+    def createClimb(self, climb):
+        self['Climbs'] = (climb.name, climb.width, climb.height, climb.angle, climb.difficulty, climb.author, \
+                            climb.region, climb.set, None)
+        
+        holdListID = self.cursor.execute(self.lastID)
 
-
-# Create a cursor object to interact with the database
-
-# Close the cursor and the connection
-cursor.close()
-connection.close()
+        for hold in climb.holds:
+            self['Holds'] = (hold.holdID, hold.x, hold.y, hold.rot, holdListID)
 
