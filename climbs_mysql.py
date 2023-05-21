@@ -1,21 +1,35 @@
 import mysql.connector
 import ClimbWrapper
+import sqlite3
+import os
 
 class Database:
-    def __init__(self):
-        self.connection = mysql.connector.connect(
-            host='localhost',
-            user='root',
-            password='password',
-            database='climb_db'
-        )
+    # def __init__(self):
+    #     self.connection = mysql.connector.connect(
+    #         host='localhost',
+    #         user='root',
+    #         password='password',
+    #         database='climb_db'
+    #     )
 
+    #     self.cursor = self.connection.cursor()
+
+
+    #     self.dropTables()
+    #     self.createTables()
+    
+    def __init__(self, reset=False):
+        if(reset):
+            try:
+                newDB = open("molecules.db", "x");
+            except FileExistsError:
+                os.remove('molecules.db');
+                newDB = open("molecules.db", "x");
+                self.createTables()
+        
+        self.connection = sqlite3.connect("molecules.db");
         self.cursor = self.connection.cursor()
 
-
-        self.dropTables()
-        self.createTables()
-    
     def __del__(self):
         self.connection.close()
 
