@@ -12,7 +12,7 @@ class Database:
     #         database='climb_db'
     #     )
 
-    #     self.cursor = self.connection.cursor()
+    #     self.connection = self.connection.connection()
 
 
     #     self.dropTables()
@@ -28,7 +28,7 @@ class Database:
                 self.createTables()
         
         self.connection = sqlite3.connect("molecules.db");
-        self.cursor = self.connection.cursor()
+        # self.connection = self.connection.connection()
 
     def __del__(self):
         self.connection.close()
@@ -39,11 +39,11 @@ class Database:
         print(insertStr)
         print(values)
 
-        self.cursor.execute(insertStr, values)
+        self.connection.execute(insertStr, values)
 
     def dropTables(self):
         dropQuery = 'DROP TABLE Climbs, Holds;'
-        self.cursor.execute(dropQuery);
+        self.connection.execute(dropQuery);
         self.connection.commit()
 
     #Create Tables
@@ -70,8 +70,8 @@ class Database:
                         FOREIGN KEY (CLIMB_ID) REFERENCES Climbs (CLIMB_ID)
                     );"""
         
-        self.cursor.execute(climbs);
-        self.cursor.execute(holds)
+        self.connection.execute(climbs);
+        self.connection.execute(holds)
         self.connection.commit()
 
     #Add a new climb to the db
@@ -81,7 +81,7 @@ class Database:
 
         self['Climbs'] = (climb.name, climb.width, climb.height, climb.angle, climb.difficulty, climb.author, climb.region, climb.hold_theme, None)
 
-        climbID = self.cursor.execute(self.lastID)
+        climbID = self.connection.execute(self.lastID)
 
         for hold in climb.holds:
             self['Holds'] = (hold.holdID, hold.x, hold.y, hold.rot, climbID)
@@ -89,7 +89,7 @@ class Database:
     #Retrieves all the climb previews for di
     def loadClimbPreviews(self):
         climbPreviewQuery = 'SELECT * FROM Climbs;'
-        climbPreviews = self.cursor.execute(climbPreviewQuery)
+        climbPreviews = self.connection.execute(climbPreviewQuery)
         return climbPreviews.fetchall()
 
     #Retrieves the full climb data for when the user purchased a climb
@@ -97,10 +97,10 @@ class Database:
         climbQuery = 'SELECT * FROM Climbs WHERE CLIMB_ID = ?;'
         holdsQuery = 'SELECT * FROM Holds WHERE CLIMB_ID = ?;'
 
-        climbInfo = self.cursor.execute(climbQuery, (climbID,))
+        climbInfo = self.connection.execute(climbQuery, (climbID,))
         climbInfo = climbInfo.fetchone()
 
-        holdsInfo = self.cursor.execute(holdsQuery, (climbID,))
+        holdsInfo = self.connection.execute(holdsQuery, (climbID,))
         holdsInfo = holdsInfo.fetchall()
 
         climb = ClimbWrapper(climbInfo, holdsInfo)
