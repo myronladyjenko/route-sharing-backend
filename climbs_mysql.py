@@ -24,6 +24,7 @@ class Database:
                 os.remove('molecules.db')
             
         self.connection = sqlite3.connect("molecules.db");
+    
         # self.connection = self.connection.connection()
 
     def __del__(self):
@@ -78,6 +79,8 @@ class Database:
         self['Climbs'] = (climb.name, climb.width, climb.height, climb.angle, climb.difficulty, climb.author, climb.region, climb.hold_theme, None)
 
         climbID = self.connection.execute(self.lastID)
+        dataClimbID = self.connection.execute("SELECT MAX(CLIMB_ID) FROM Climbs");
+        climbID = int(dataClimbID.fetchone()[0]);
 
         for hold in climb.holds:
             self['Holds'] = (hold.holdID, hold.x, hold.y, hold.rot, climbID)
