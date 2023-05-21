@@ -27,7 +27,7 @@ class Database:
 
         self.cursor.execute(insertStr, values)
 
-    def dropTables():
+    def dropTables(self):
         dropQuery = 'DROP TABLE Climbs, Holds;'
         self.cursor.execute(dropQuery);
         self.connection.commit()
