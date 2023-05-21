@@ -44,6 +44,9 @@ class MyHandler( BaseHTTPRequestHandler ):
         data = self.rfile.read(content_length);
         data = urllib.parse.parse_qs( data.decode( 'utf-8' ) );
 
+        print("PRINTING IN SERVER")
+        print(data)
+
         db.createClimb(data)
 
         self.send_response(200)
