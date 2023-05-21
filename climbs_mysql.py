@@ -11,6 +11,10 @@ class Database:
         )
 
         self.cursor = self.connection.cursor()
+
+
+        self.dropTables()
+        self.createTables()
     
     def __del__(self):
         self.connection.close()
@@ -18,8 +22,15 @@ class Database:
     def __setitem__(self, table, values):
         placeholders = ", ".join(["%s"] * len(values)) 
         insertStr = f"INSERT OR IGNORE INTO {table} VALUES ({placeholders});";
+        print(insertStr)
+        print(values)
 
         self.cursor.execute(insertStr, values)
+
+    def dropTables():
+        dropQuery = 'DROP TABLE Climbs, Holds;'
+        self.cursor.execute(dropQuery);
+        self.connection.commit()
 
     #Create Tables
     def createTables(self):
