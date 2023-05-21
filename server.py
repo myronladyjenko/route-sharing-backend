@@ -62,8 +62,6 @@ class MyHandler( BaseHTTPRequestHandler ):
       if self.path == '/create-climb':
         content_length = int(self.headers['Content-Length'])
         data = self.rfile.read(content_length);
-        print(content_length)
-        print(data)
         data = data.decode( 'utf-8' )
 
         print("PRINTING IN SERVER")
