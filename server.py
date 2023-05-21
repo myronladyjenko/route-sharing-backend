@@ -58,7 +58,7 @@ class MyHandler( BaseHTTPRequestHandler ):
         self.end_headers();
         self.wfile.write( bytes( "404: not found", "utf-8" ) );
     
-    def do_OPTIONS(self):
+    def do_POST(self):
       if self.path == '/create-climb':
         content_length = int(self.headers['Content-Length'])
         data = self.rfile.read(content_length);
@@ -94,6 +94,10 @@ class MyHandler( BaseHTTPRequestHandler ):
         self.end_headers()
         response = {'message': 'Purchase successful', 'transactionHash': transaction_hash}
         self.wfile.write(json.dumps(response).encode('utf-8'))
+    def do_OPTION():
+      self.send_response(200)
+      self.send_header('Access-Control-Allow-Origin', '*')
+      self.end_headers()
 
 if __name__ == '__main__':
   httpd = HTTPServer(('0.0.0.0', int(sys.argv[1])), MyHandler);
