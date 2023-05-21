@@ -63,6 +63,7 @@ class MyHandler( BaseHTTPRequestHandler ):
         content_length = int(self.headers['Content-Length'])
         data = self.rfile.read(content_length);
         data = data.decode( 'utf-8' )
+        data = json.loads(data)
 
         print("PRINTING IN SERVER")
         print(data)
