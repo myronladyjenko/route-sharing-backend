@@ -49,7 +49,7 @@ class MyHandler( BaseHTTPRequestHandler ):
         self.wfile.write(json.dumps(response).encode('utf-8'))
         return
 
-      transaction_hash = web3.eth.sendRawTransaction(signed_transaction.rawTransaction).hex()
+      transaction_hash = Web3.eth.sendRawTransaction(signed_transaction.rawTransaction).hex()
 
       # potentiall here we need to call Eric's method to update the database
 
