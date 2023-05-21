@@ -5,7 +5,7 @@ from web3 import Web3
 import urllib
 import climbs_mysql
 
-db = climbs_mysql.Database()
+db = climbs_mysql.Database(reset=True)
 db.createTables()
 
 
