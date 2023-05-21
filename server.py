@@ -5,6 +5,10 @@ from web3 import Web3
 import urllib
 import climbs_mysql
 
+db = climbs_mysql.Database()
+db.createTables()
+
+
 climbConfigs = {
   "crimp": [
     1,
@@ -24,15 +28,31 @@ class MyHandler( BaseHTTPRequestHandler ):
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers();
         self.wfile.write( bytes( json.dumps(climbConfigs), "utf-8" ) );
-      elif self.path == "/hello.html":
-        self.send_response( 200 ); # OK
+      elif self.path == "preview-climbs":
+        dataRows = db.loadClimbPreviews()
+        
+        data = []
+        for row in dataRows:
+          result = {}
+          result['name'] = row[0]
+          result['width'] = row[1]
+          result['height'] = row[2]
+          result['angle'] = row[3]
+          result['difficulty'] = row[4]
+          result['author'] = row[5]
+          result['region'] = row[6]
+          result['hold_theme'] = row[7]
+          result['climd_id'] = row[8]
+            
+          data.append(result)
+
+        content = json.dumps(data)
+
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json')
         self.send_header('Access-Control-Allow-Origin', '*')
-        self.send_header( "Content-type", "text/html" );
-        self.send_header( "Content-length", len(home_page) );
-        self.end_headers();
-
-        self.wfile.write( bytes( home_page, "utf-8" ) );
-
+        self.end_headers()
+        self.wfile.write(content.encode('utf-8'))
       else:
         self.send_response( 404 );
         self.end_headers();
