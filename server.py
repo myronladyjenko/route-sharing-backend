@@ -46,8 +46,8 @@ class MyHandler( BaseHTTPRequestHandler ):
 
         db.createClimb(data)
 
-        self.send_header('Access-Control-Allow-Origin', '*')
         self.send_response(200)
+        self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
       
       elif self.path == '/buy-climb':
