@@ -55,7 +55,7 @@ class Database:
         climb = ClimbWrapper.Climb(climbData)
 
         self['Climbs'] = (climb.name, climb.width, climb.height, climb.angle, climb.difficulty, climb.author, \
-                            climb.region, climb.set, None)
+                            climb.region, climb.hold_theme, None)
 
         climbID = self.cursor.execute(self.lastID)
 
