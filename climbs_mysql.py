@@ -46,22 +46,22 @@ class Database:
     def createTables(self):
         climbs = """CREATE TABLE IF NOT EXISTS Climbs (
                         NAME        TEXT        NOT NULL,
-                        WIDTH       INT         NOT NULL,
-                        HEIGHT      INT         NOT NULL,
-                        ANGLE       INT         NOT NULL,
+                        WIDTH       INTEGER         NOT NULL,
+                        HEIGHT      INTEGER         NOT NULL,
+                        ANGLE       INTEGER         NOT NULL,
                         DIFFICULTY  TEXT        NOT NULL,
                         AUTHOR      TEXT        NOT NULL,
                         REGION      TEXT        NOT NULL,
                         HOLDS_SET   TEXT        NOT NULL,
-                        CLIMB_ID    INT         NOT NULL PRIMARY KEY AUTOINCREMENT
+                        CLIMB_ID    INTEGER         NOT NULL PRIMARY KEY AUTOINCREMENT
                     );"""
 
         holds = """ CREATE TABLE IF NOT EXISTS Holds (
-                        HOLD_ID         INT         NOT NULL,
-                        X               INT         NOT NULL,
-                        Y               INT         NOT NULL,
-                        ROT             INT         NOT NULL,
-                        CLIMB_ID        INT         NOT NULL,
+                        HOLD_ID         INTEGER         NOT NULL,
+                        X               INTEGER         NOT NULL,
+                        Y               INTEGER         NOT NULL,
+                        ROT             INTEGER         NOT NULL,
+                        CLIMB_ID        INTEGER         NOT NULL,
                         PRIMARY KEY (CLIMB_ID),
                         FOREIGN KEY (CLIMB_ID) REFERENCES Climbs (CLIMB_ID)
                     );"""
